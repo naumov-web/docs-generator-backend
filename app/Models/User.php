@@ -4,22 +4,29 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+/**
+ * Class User
+ * @package App\Models
+ *
+ * @property-read int $id
+ * @property string $email
+ * @property string $password
+ */
+final class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
+     * Guarded arguments list
+     * @var array
      */
-    protected $fillable = [
-        'email',
-        'password',
+    protected $guarded = [
+        'id'
     ];
 
     /**
@@ -28,6 +35,31 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password'
     ];
+
+    /**
+     * User roles relation
+     *
+     * @return BelongsToMany
+     */
+    public function companies(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Company::class,
+            'company_users',
+            'user_id',
+            'company_id'
+        );
+    }
+
+    /**
+     * User roles relation
+     *
+     * @return BelongsToMany
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'user_roles');
+    }
 }
