@@ -1,0 +1,24 @@
+swagger: "2.0"
+info:
+  title: "Docs generator API"
+  description: "Docs for Docs generator API"
+  version: "0.5"
+schemes:
+  - "https"
+host: 127.0.0.1:31080
+basePath: /api
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+
+definitions:
+
+  # Requests
+
+  # Responses
