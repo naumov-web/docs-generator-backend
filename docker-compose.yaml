@@ -43,3 +43,14 @@ services:
       - ./persistent_data/pgsql:/var/lib/postgresql/data
     networks:
       - default-network
+
+  pgsql_testing:
+    image: postgres:11.3
+    ports:
+      - "${DOCKER_PGSQL_TESTING_PORT}:5432"
+    environment:
+      POSTGRES_DB: ${DB_TESTING_DATABASE}
+      POSTGRES_USER: ${DB_TESTING_USERNAME}
+      POSTGRES_PASSWORD: ${DB_TESTING_PASSWORD}
+    networks:
+      - default-network
