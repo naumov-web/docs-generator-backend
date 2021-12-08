@@ -14,6 +14,8 @@ Route::middleware('locale')->group(function() {
         Route::prefix('auth')->group(function () {
             Route::post('register', 'Api\V1\AuthController@register')
                 ->name('auth.register');
+            Route::post('login', 'Api\V1\AuthController@login')
+                ->name('auth.login');
         });
     });
 });

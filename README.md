@@ -17,7 +17,7 @@ docker-compose up
 
 - внутри контейнера выполнить команду:
 ```shell script
-php artisan migrate
+php artisan migrate && php artisan db:seed
 ```
 
 ## 2. Просмотр документации
