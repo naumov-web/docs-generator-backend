@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Docs generator'),
 
     /*
     |--------------------------------------------------------------------------
@@ -232,4 +232,5 @@ return [
 
     ],
 
+    'default_username' => env('DEFAULT_USERNAME', null)
 ];

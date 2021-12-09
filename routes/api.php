@@ -11,11 +11,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('locale')->group(function() {
     Route::prefix('v1')->name('v1.')->group(function (){
-        Route::prefix('auth')->group(function () {
-            Route::post('register', 'Api\V1\AuthController@register')
-                ->name('auth.register');
-            Route::post('login', 'Api\V1\AuthController@login')
-                ->name('auth.login');
+        Route::prefix('projects')->name('projects.')->group(function () {
+            Route::post('', 'Api\V1\ProjectsController@create')->name('create');
         });
     });
 });

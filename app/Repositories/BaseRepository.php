@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
-use App\DTO\FilterDTO;
-use App\DTO\IndexDTO;
-use App\DTO\ListItemsDTO;
+use App\DTO\Common\FilterDTO;
+use App\DTO\Common\IndexDTO;
+use App\DTO\Common\ListItemsDTO;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +23,16 @@ abstract class BaseRepository
      * @return string
      */
     protected abstract function getModelClass(): string;
+
+    /**
+     * Get instance of repository
+     *
+     * @throws BindingResolutionException
+     */
+    public static function getInstance(): self
+    {
+        return app()->make(self::class);
+    }
 
     /**
      * Get primary key name

@@ -1,8 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
-class ProjectsRepository extends BaseRepository
+use App\Models\Project;
+
+/**
+ * Class ProjectsRepository
+ * @package App\Repositories
+ */
+final class ProjectsRepository extends BaseRepository
 {
 
     /**
@@ -10,6 +18,6 @@ class ProjectsRepository extends BaseRepository
      */
     protected function getModelClass(): string
     {
-        // TODO: Implement getModelClass() method.
+        return Project::class;
     }
 }

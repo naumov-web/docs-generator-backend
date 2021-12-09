@@ -127,7 +127,7 @@ return [
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
-    'email_already_registered' => 'Email already registered!',
+    'project_system_name_already_exists' => 'Project system name already exists!',
 
     /*
     |--------------------------------------------------------------------------

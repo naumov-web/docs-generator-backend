@@ -1,8 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
-class UsersRepository extends BaseRepository
+use App\Models\User;
+
+/**
+ * Class UsersRepository
+ * @package App\Repositories
+ */
+final class UsersRepository extends BaseRepository
 {
 
     /**
@@ -10,6 +18,6 @@ class UsersRepository extends BaseRepository
      */
     protected function getModelClass(): string
     {
-        // TODO: Implement getModelClass() method.
+        return User::class;
     }
 }
