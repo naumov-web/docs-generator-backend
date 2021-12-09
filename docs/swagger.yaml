@@ -8,18 +8,57 @@ schemes:
 host: 127.0.0.1:31080
 basePath: /api
 
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-
 paths:
+
+  /v1/projects:
+    post:
+      tags:
+        - "projects"
+      summary: "Create new project"
+      description: ""
+      produces:
+        - "application/json"
+      consumes:
+        - "application/json"
+      parameters:
+        - name: "CreateProjectRequestBody"
+          in: "body"
+          description: "Create project request body"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateProjectRequestModel"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/SimpleSuccessResponseModel"
+        401:
+          description: "Unauthorized error"
+          schema:
+            $ref: "#/definitions/UnauthorizedResponseModel"
+        422:
+          description: "Validation error"
+          schema:
+            $ref: "#/definitions/DefaultValidationErrorResponseModel"
+        500:
+          description: "Internal server error"
+          schema:
+            $ref: "#/definitions/ServerErrorResponseModel"
 
 definitions:
 
   # Requests
+
+  CreateProjectRequestModel:
+    type: "object"
+    required:
+      - "system_name"
+      - "name"
+    properties:
+      system_name:
+        type: "string"
+      name:
+        type: "string"
 
   # Responses
 
