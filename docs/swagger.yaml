@@ -17,9 +17,114 @@ components:
 
 paths:
 
+  /v1/auth/register:
+    post:
+      tags:
+        - "auth"
+      summary: "Register new user"
+      description: ""
+      produces:
+        - "application/json"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+        - name: "RegisterRequestBody"
+          in: "body"
+          description: "Register request body"
+          required: true
+          schema:
+            $ref: "#/definitions/RegisterRequestModel"
+      responses:
+        201:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/SimpleSuccessResponseModel"
+        422:
+          description: "Validation error"
+          schema:
+            $ref: "#/definitions/DefaultValidationErrorResponseModel"
+        500:
+          description: "Internal server error"
+          schema:
+            $ref: "#/definitions/ServerErrorResponseModel"
+
+  /v1/auth/login:
+    post:
+      tags:
+        - "auth"
+      summary: "Login user"
+      description: ""
+      produces:
+        - "application/json"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+        - name: "LoginRequestBody"
+          in: "body"
+          description: "Login request body"
+          required: true
+          schema:
+            $ref: "#/definitions/LoginRequestModel"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/LoginResponseModel"
+        403:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/ForbiddenResponseModel"
+        422:
+          description: "Validation error"
+          schema:
+            $ref: "#/definitions/DefaultValidationErrorResponseModel"
+        500:
+          description: "Internal server error"
+          schema:
+            $ref: "#/definitions/ServerErrorResponseModel"
+
 definitions:
 
   # Requests
+
+  RegisterRequestModel:
+    type: "object"
+    required:
+      - "email"
+      - "password"
+      - "password_confirmation"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+      password_confirmation:
+        type: "string"
+      company_name:
+        type: "string"
+
+  LoginRequestModel:
+    type: "object"
+    required:
+      - "email"
+      - "password"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
 
   # Responses
 
@@ -59,4 +164,14 @@ definitions:
       success:
         type: "boolean"
       message:
+        type: "string"
+
+  LoginResponseModel:
+    type: "object"
+    properties:
+      success:
+        type: "boolean"
+      message:
+        type: "string"
+      token:
         type: "string"
