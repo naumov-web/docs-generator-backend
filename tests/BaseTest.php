@@ -20,5 +20,6 @@ abstract class BaseTest extends TestCase
      */
     protected function seedDatabase(): void
     {
+        $this->seed(RolesSeeder::class);
     }
 }
