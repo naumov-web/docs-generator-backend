@@ -7,6 +7,9 @@ use App\Http\Requests\Api\BaseApiRequest;
 /**
  * Class LoginRequest
  * @package App\Http\Requests\Api\V1\Auth
+ *
+ * @property string $email
+ * @property string $password
  */
 final class LoginRequest extends BaseApiRequest
 {

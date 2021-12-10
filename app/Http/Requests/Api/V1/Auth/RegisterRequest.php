@@ -8,6 +8,11 @@ use App\Rules\EmailNotExists;
 /**
  * Class RegisterRequest
  * @package App\Http\Requests\Api\V1\Auth
+ *
+ * @property string $email
+ * @property string $password
+ * @property string $password_confirmation
+ * @property string $company_name
  */
 final class RegisterRequest extends BaseApiRequest
 {
