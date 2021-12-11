@@ -83,13 +83,49 @@ paths:
           schema:
             $ref: "#/definitions/LoginResponseModel"
         403:
-          description: "Successful operation"
+          description: "Forbidden"
           schema:
             $ref: "#/definitions/ForbiddenResponseModel"
         422:
           description: "Validation error"
           schema:
             $ref: "#/definitions/DefaultValidationErrorResponseModel"
+        500:
+          description: "Internal server error"
+          schema:
+            $ref: "#/definitions/ServerErrorResponseModel"
+
+  /v1/account/user:
+    get:
+      tags:
+        - "auth"
+      security:
+        - bearerAuth: [ ]
+      summary: "Get current user info"
+      description: ""
+      produces:
+        - "application/json"
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/UserDetailDataResponseModel"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/UnauthorizedResponseModel"
         500:
           description: "Internal server error"
           schema:
@@ -174,4 +210,28 @@ definitions:
       message:
         type: "string"
       token:
+        type: "string"
+
+  UserDetailDataResponseModel:
+    type: "object"
+    properties:
+      success:
+        type: "boolean"
+      message:
+        type: "string"
+      user:
+        $ref: "#/definitions/UserDetailResponseModel"
+
+  UserDetailResponseModel:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      email:
+        type: "string"
+      first_name:
+        type: "string"
+      surname:
+        type: "string"
+      last_name:
         type: "string"

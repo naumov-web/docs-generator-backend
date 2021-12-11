@@ -11,11 +11,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('locale')->group(function() {
     Route::prefix('v1')->name('v1.')->group(function (){
-        Route::prefix('auth')->group(function () {
+        Route::prefix('auth')->name('auth.')->group(function () {
             Route::post('register', 'Api\V1\AuthController@register')
-                ->name('auth.register');
+                ->name('register');
             Route::post('login', 'Api\V1\AuthController@login')
-                ->name('auth.login');
+                ->name('login');
+        });
+
+        Route::middleware(['auth.jwt'])->group(function(){
+            Route::prefix('account')->name('account.')->group(function (){
+                Route::prefix('user')->name('user.')->group(function () {
+                    Route::get('', 'Api\V1\UserController@show')
+                        ->name('show');
+                });
+            });
         });
     });
 });
