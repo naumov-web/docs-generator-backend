@@ -19,7 +19,7 @@ Route::middleware('locale')->group(function() {
         });
 
         Route::middleware(['auth.jwt'])->group(function(){
-            Route::prefix('account')->group(function (){
+            Route::prefix('account')->name('account.')->group(function (){
                 Route::prefix('user')->name('user.')->group(function () {
                     Route::get('', 'Api\V1\UserController@show')
                         ->name('show');
