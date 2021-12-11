@@ -121,7 +121,7 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/UserDetailResponseModel"
+            $ref: "#/definitions/UserDetailDataResponseModel"
         401:
           description: "Unauthorized"
           schema:
@@ -211,6 +211,16 @@ definitions:
         type: "string"
       token:
         type: "string"
+
+  UserDetailDataResponseModel:
+    type: "object"
+    properties:
+      success:
+        type: "boolean"
+      message:
+        type: "string"
+      user:
+        $ref: "#/definitions/UserDetailResponseModel"
 
   UserDetailResponseModel:
     type: "object"

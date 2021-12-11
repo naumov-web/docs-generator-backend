@@ -6,6 +6,7 @@ use App\Enums\UseCaseSystemNamesEnum;
 use App\Exceptions\UseCaseNotFoundException;
 use App\UseCases\Auth\LoginUseCase;
 use App\UseCases\Auth\RegisterUseCase;
+use App\UseCases\Users\ShowDetailUserUseCase;
 use Illuminate\Contracts\Container\BindingResolutionException;
 
 /**
@@ -20,7 +21,8 @@ final class UseCaseFactory
      */
     private array $use_cases_mapping = [
         UseCaseSystemNamesEnum::REGISTER => RegisterUseCase::class,
-        UseCaseSystemNamesEnum::LOGIN => LoginUseCase::class
+        UseCaseSystemNamesEnum::LOGIN => LoginUseCase::class,
+        UseCaseSystemNamesEnum::SHOW_DETAIL_USER => ShowDetailUserUseCase::class
     ];
 
     /**

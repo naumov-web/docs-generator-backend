@@ -19,4 +19,10 @@ final class UseCaseSystemNamesEnum
      * @var string
      */
     public const LOGIN = 'login';
+
+    /**
+     * Use case "Show detail user"
+     * @var string
+     */
+    public const SHOW_DETAIL_USER = 'show_detail_user';
 }
