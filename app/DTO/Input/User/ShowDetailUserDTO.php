@@ -7,12 +7,12 @@ use App\Models\User;
 
 /**
  * Class ShowDetailUserDTO
- * @package App\DTO\Input\User
+ * @package App\DTO\Input\Users
  */
 final class ShowDetailUserDTO extends BaseInputDTO
 {
     /**
-     * User instance
+     * Users instance
      * @var User
      */
     private User $user;

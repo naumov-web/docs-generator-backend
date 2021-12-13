@@ -1,16 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\DTO\Input\User\ShowDetailUserDTO;
+use App\DTO\Input\User\UpdateSpecificUserDTO;
 use App\Enums\UseCaseSystemNamesEnum;
 use App\Exceptions\InvalidInputDTOException;
 use App\Exceptions\UseCaseNotFoundException;
 use App\Http\Controllers\Api\BaseApiController;
+use App\Http\Request\Api\V1\Users\UpdateUserRequest;
 use App\Http\Resources\Api\V1\Users\UserDetailResource;
 use App\Models\User;
 use App\UseCases\UseCaseFactory;
 use App\UseCases\Users\ShowDetailUserUseCase;
+use App\UseCases\Users\UpdateSpecificUserUseCase;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 
@@ -38,10 +43,10 @@ final class UserController extends BaseApiController
     /**
      * Show current user detail info
      *
-     * @return UserDetailResource
+     * @return JsonResponse
+     * @throws BindingResolutionException
      * @throws InvalidInputDTOException
      * @throws UseCaseNotFoundException
-     * @throws BindingResolutionException
      */
     public function show(): JsonResponse
     {
@@ -61,6 +66,48 @@ final class UserController extends BaseApiController
                 'success' => true,
                 'message' => __('messages.user_info_loaded_successfully'),
                 'user' => new UserDetailResource($use_case->getUser())
+            ]
+        );
+    }
+
+    /**
+     * Update current user info
+     *
+     * @param UpdateUserRequest $request
+     * @return JsonResponse
+     * @throws BindingResolutionException
+     * @throws InvalidInputDTOException
+     * @throws UseCaseNotFoundException
+     */
+    public function update(UpdateUserRequest $request): JsonResponse
+    {
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+        /**
+         * @var UpdateSpecificUserUseCase $use_case
+         */
+        $use_case = $this->use_case_factory->createUseCase(UseCaseSystemNamesEnum::UPDATE_SPECIFIC_USER);
+        $use_case
+            ->setInputDTO(
+                (new UpdateSpecificUserDTO($user))
+                    ->fill(
+                        $request->only([
+                            'email',
+                            'password',
+                            'first_name',
+                            'surname',
+                            'last_name'
+                        ])
+                    )
+            )
+            ->execute();
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => __('messages.user_updated_successfully'),
             ]
         );
     }

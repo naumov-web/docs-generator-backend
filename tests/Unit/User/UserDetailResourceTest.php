@@ -10,7 +10,7 @@ use Tests\BaseTest;
 
 /**
  * Class UserDetailResourceTest
- * @package Tests\Unit\User
+ * @package Tests\Unit\Users
  */
 final class UserDetailResourceTest extends BaseTest
 {

@@ -25,4 +25,10 @@ final class UseCaseSystemNamesEnum
      * @var string
      */
     public const SHOW_DETAIL_USER = 'show_detail_user';
+
+    /**
+     * Use case "Update specific user"
+     * @var string
+     */
+    public const UPDATE_SPECIFIC_USER = 'update_specific_user';
 }

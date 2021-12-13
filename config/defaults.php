@@ -6,7 +6,7 @@ return [
     'roles' => [
         [
             'system_name' => RoleSystemNamesEnum::USER,
-            'name' => 'User'
+            'name' => 'Users'
         ],
         [
             'system_name' => RoleSystemNamesEnum::COMPANY_OWNER,

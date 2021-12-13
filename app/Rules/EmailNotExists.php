@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Rules;
 
 use App\DTO\Common\FilterDTO;
@@ -20,11 +22,20 @@ final class EmailNotExists implements Rule
     private UsersRepository $repository;
 
     /**
+     * Except id value
+     * @var int|null
+     */
+    private int|null $except_id;
+
+    /**
      * EmailNotExists constructor
+     * @param int|null $except_id
      * @throws BindingResolutionException
      */
-    public function __construct()
+    public function __construct(int $except_id = null)
     {
+        $this->except_id = $except_id;
+
         $this->repository = app()->make(UsersRepository::class);
     }
 
@@ -34,11 +45,13 @@ final class EmailNotExists implements Rule
     public function passes($attribute, $value): bool
     {
         if ($value) {
-            $count = $this->repository->getCountByFilters([
-                new FilterDTO('email', '=', $value)
-            ]);
+            $filters = [new FilterDTO('email', '=', $value)];
 
-            return $count === 0;
+            if ($this->except_id) {
+                $filters[] = new FilterDTO('id', '<>', $this->except_id);
+            }
+
+            return $this->repository->getCountByFilters($filters) === 0;
         }
 
         return true;

@@ -11,13 +11,13 @@ use App\DTO\BaseInputDTO;
 final class LoginDTO extends BaseInputDTO
 {
     /**
-     * User email value
+     * Users email value
      * @var string
      */
     protected string $email;
 
     /**
-     * User password value
+     * Users password value
      * @var string
      */
     protected string $password;

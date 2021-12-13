@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
- * Class User
+ * Class Users
  * @package App\Models
  *
  * @property-read int $id
@@ -42,7 +42,7 @@ final class User extends Authenticatable implements JWTSubject
     ];
 
     /**
-     * User roles relation
+     * Users roles relation
      *
      * @return BelongsToMany
      */
@@ -57,7 +57,7 @@ final class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * User roles relation
+     * Users roles relation
      *
      * @return BelongsToMany
      */
