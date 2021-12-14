@@ -21,31 +21,31 @@ final class UpdateSpecificUserDTO extends BaseInputDTO
      * Email value
      * @var string|null
      */
-    private string|null $email = null;
+    protected string|null $email = null;
 
     /**
      * Password value
      * @var string|null
      */
-    private string|null $password = null;
+    protected string|null $password = null;
 
     /**
      * First name value
      * @var string|null
      */
-    private string|null $first_name = null;
+    protected string|null $first_name = null;
 
     /**
      * Surname value
      * @var string|null
      */
-    private string|null $surname = null;
+    protected string|null $surname = null;
 
     /**
      * Last name value
      * @var string|null
      */
-    private string|null $last_name = null;
+    protected string|null $last_name = null;
 
     /**
      * ShowDetailUserDTO constructor
