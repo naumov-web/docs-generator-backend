@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Request\Api\V1\Users;
+namespace App\Http\Requests\Api\V1\Users;
 
 use App\Http\Requests\Api\BaseApiRequest;
 use App\Models\User;

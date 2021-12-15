@@ -10,7 +10,7 @@ use App\Enums\UseCaseSystemNamesEnum;
 use App\Exceptions\InvalidInputDTOException;
 use App\Exceptions\UseCaseNotFoundException;
 use App\Http\Controllers\Api\BaseApiController;
-use App\Http\Request\Api\V1\Users\UpdateUserRequest;
+use App\Http\Requests\Api\V1\Users\UpdateUserRequest;
 use App\Http\Resources\Api\V1\Users\UserDetailResource;
 use App\Models\User;
 use App\UseCases\UseCaseFactory;
