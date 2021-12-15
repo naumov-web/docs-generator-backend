@@ -98,7 +98,7 @@ paths:
   /v1/account/user:
     get:
       tags:
-        - "auth"
+        - "user"
       security:
         - bearerAuth: [ ]
       summary: "Get current user info"
@@ -126,6 +126,50 @@ paths:
           description: "Unauthorized"
           schema:
             $ref: "#/definitions/UnauthorizedResponseModel"
+        500:
+          description: "Internal server error"
+          schema:
+            $ref: "#/definitions/ServerErrorResponseModel"
+    put:
+      tags:
+        - "user"
+      security:
+        - bearerAuth: [ ]
+      summary: "Update current user"
+      description: ""
+      produces:
+        - "application/json"
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+        - name: "UpdateUserRequestBody"
+          in: "body"
+          description: "Update user request body"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateUserRequestModel"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/SimpleSuccessResponseModel"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/UnauthorizedResponseModel"
+        422:
+          description: "Validation error"
+          schema:
+            $ref: "#/definitions/DefaultValidationErrorResponseModel"
         500:
           description: "Internal server error"
           schema:
@@ -160,6 +204,24 @@ definitions:
       email:
         type: "string"
       password:
+        type: "string"
+
+  UpdateUserRequestModel:
+    type: "object"
+    required:
+      - "email"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+      password_confirmation:
+        type: "string"
+      first_name:
+        type: "string"
+      surname:
+        type: "string"
+      last_name:
         type: "string"
 
   # Responses

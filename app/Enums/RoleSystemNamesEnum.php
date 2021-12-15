@@ -9,7 +9,7 @@ namespace App\Enums;
 final class RoleSystemNamesEnum
 {
     /**
-     * Role system name "User"
+     * Role system name "Users"
      * @var string
      */
     public const USER = 'user';

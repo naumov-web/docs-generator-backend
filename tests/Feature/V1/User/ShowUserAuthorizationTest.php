@@ -8,7 +8,7 @@ use Tests\Feature\BaseFeatureTest;
 
 /**
  * Class ShowUserAuthorizationTest
- * @package Tests\Feature\V1\User
+ * @package Tests\Feature\V1\Users
  */
 final class ShowUserAuthorizationTest extends BaseFeatureTest
 {

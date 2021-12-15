@@ -4,7 +4,8 @@ return [
     'unauthorized' => 'Unauthorized!',
     'forbidden' => 'Forbidden!',
     'resource_not_found' => 'Not found!',
-    'user_logged_successfully' => 'User logged successfully!',
-    'user_registered_successfully' => 'User successfully registered!',
-    'user_info_loaded_successfully' => 'User info loaded successfully!'
+    'user_logged_successfully' => 'Users logged successfully!',
+    'user_registered_successfully' => 'Users successfully registered!',
+    'user_info_loaded_successfully' => 'Users info loaded successfully!',
+    'user_updated_successfully' => 'User updated successfully!'
 ];

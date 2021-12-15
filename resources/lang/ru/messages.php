@@ -6,5 +6,6 @@ return [
     'resource_not_found' => 'Ресурс не найден!',
     'user_logged_successfully' => 'Пользователь успешно авторизирован!',
     'user_registered_successfully' => 'Пользователь успешно зарегистрирован!',
-    'user_info_loaded_successfully' => 'Информация о пользователе успешно загружена!'
+    'user_info_loaded_successfully' => 'Информация о пользователе успешно загружена!',
+    'user_updated_successfully' => 'Информация о пользователе успешно изменена!'
 ];

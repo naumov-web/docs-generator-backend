@@ -23,6 +23,8 @@ Route::middleware('locale')->group(function() {
                 Route::prefix('user')->name('user.')->group(function () {
                     Route::get('', 'Api\V1\UserController@show')
                         ->name('show');
+                    Route::put('', 'Api\V1\UserController@update')
+                        ->name('update');
                 });
             });
         });
