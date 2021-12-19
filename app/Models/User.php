@@ -19,6 +19,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string $first_name
  * @property string $surname
  * @property string $last_name
+ * @property Company|null $first_company
  */
 final class User extends Authenticatable implements JWTSubject
 {
@@ -54,6 +55,16 @@ final class User extends Authenticatable implements JWTSubject
             'user_id',
             'company_id'
         );
+    }
+
+    /**
+     * Get first company attribute accessor
+     *
+     * @return Company|null
+     */
+    public function getFirstCompanyAttribute(): ?Company
+    {
+        return $this->companies()->first();
     }
 
     /**

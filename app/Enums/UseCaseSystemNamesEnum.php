@@ -31,4 +31,10 @@ final class UseCaseSystemNamesEnum
      * @var string
      */
     public const UPDATE_SPECIFIC_USER = 'update_specific_user';
+
+    /**
+     * Use case "Create document template"
+     * @var string
+     */
+    public const CREATE_DOCUMENT_TEMPLATE = 'create_document_template';
 }
