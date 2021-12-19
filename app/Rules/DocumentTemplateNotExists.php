@@ -23,6 +23,12 @@ final class DocumentTemplateNotExists implements Rule
     private User $user;
 
     /**
+     * Template name value
+     * @var string
+     */
+    private string $template_name;
+
+    /**
      * Document templates repository instance
      * @var DocumentTemplatesRepository
      */
@@ -45,6 +51,7 @@ final class DocumentTemplateNotExists implements Rule
     public function passes($attribute, $value): bool
     {
         $first_company = $this->user->first_company;
+        $this->template_name = $value;
         $owner = $first_company ?? $this->user;
         $filters = [
             new FilterDTO('owner_type', '=', get_class($owner)),
@@ -60,6 +67,6 @@ final class DocumentTemplateNotExists implements Rule
      */
     public function message(): string
     {
-        return __('validation');
+        return __('validation.document_template_with_name_already_exists', ['name' => $this->template_name]);
     }
 }

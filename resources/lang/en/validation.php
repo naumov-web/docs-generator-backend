@@ -128,6 +128,7 @@ return [
     'uuid' => 'The :attribute must be a valid UUID.',
 
     'email_already_registered' => 'Email already registered!',
+    'document_template_with_name_already_exists' => 'Document template with name ":name" already exists!',
 
     /*
     |--------------------------------------------------------------------------
