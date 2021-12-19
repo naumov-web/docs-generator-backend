@@ -12,6 +12,8 @@ namespace App\Models;
  * @property string $name
  * @property string $mime
  * @property string $path
+ *
+ * @property string $full_path
  */
 final class File extends BaseModel
 {
@@ -28,4 +30,14 @@ final class File extends BaseModel
      * @var string
      */
     public const PATH_TEMPLATE = '/uploads/{{date}}/{{uid}}/{{file_name}}';
+
+    /**
+     * Get full path attribute accessor
+     *
+     * @return string
+     */
+    public function getFullPathAttribute(): string
+    {
+        return base_path(self::UPLOAD_DIR_PATH . $this->path);
+    }
 }

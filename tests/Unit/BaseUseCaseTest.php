@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\UseCases\UseCaseFactory;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Tests\BaseTest;
+use Tests\Traits\UseUserRegistration;
 
 /**
  * Class BaseUseCaseTest
@@ -12,6 +13,8 @@ use Tests\BaseTest;
  */
 abstract class BaseUseCaseTest extends BaseTest
 {
+    use UseUserRegistration;
+
     /**
      * Use case factory instance
      * @var UseCaseFactory

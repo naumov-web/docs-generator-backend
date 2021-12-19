@@ -18,7 +18,8 @@ use Tests\Unit\BaseValidationRuleTest;
 final class EmailAlreadyExistsTest extends BaseValidationRuleTest
 {
     /**
-     * Test case when user with email already registered
+     * Test case when user with email not registered and already registered
+     * Test case reproduce:
      * 1. Seed database
      * 2. Define user data and register new user
      * 3. Create validation class instance
@@ -33,7 +34,7 @@ final class EmailAlreadyExistsTest extends BaseValidationRuleTest
      * @throws UseCaseNotFoundException
      * @throws BindingResolutionException
      */
-    public function testWhenUserWithEmailAlreadyRegistered(): void
+    public function testWhenUserWithEmailNotRegisteredAndAlreadyRegistered(): void
     {
         // 1. Seed database
         $this->seedDatabase();
