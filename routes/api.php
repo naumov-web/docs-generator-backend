@@ -26,6 +26,11 @@ Route::middleware('locale')->group(function() {
                     Route::put('', 'Api\V1\UserController@update')
                         ->name('update');
                 });
+
+                Route::prefix('document-templates')->name('document_templates.')->group(function () {
+                    Route::post('', 'Api\V1\DocumentTemplatesController@create')
+                        ->name('create');
+                });
             });
         });
     });

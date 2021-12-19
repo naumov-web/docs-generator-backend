@@ -8,6 +8,7 @@ use App\Enums\UseCaseSystemNamesEnum;
 use App\Exceptions\UseCaseNotFoundException;
 use App\UseCases\Auth\LoginUseCase;
 use App\UseCases\Auth\RegisterUseCase;
+use App\UseCases\DocumentTemplates\CreateDocumentTemplateUseCase;
 use App\UseCases\Users\ShowDetailUserUseCase;
 use App\UseCases\Users\UpdateSpecificUserUseCase;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -26,7 +27,8 @@ final class UseCaseFactory
         UseCaseSystemNamesEnum::REGISTER => RegisterUseCase::class,
         UseCaseSystemNamesEnum::LOGIN => LoginUseCase::class,
         UseCaseSystemNamesEnum::SHOW_DETAIL_USER => ShowDetailUserUseCase::class,
-        UseCaseSystemNamesEnum::UPDATE_SPECIFIC_USER => UpdateSpecificUserUseCase::class
+        UseCaseSystemNamesEnum::UPDATE_SPECIFIC_USER => UpdateSpecificUserUseCase::class,
+        UseCaseSystemNamesEnum::CREATE_DOCUMENT_TEMPLATE => CreateDocumentTemplateUseCase::class
     ];
 
     /**
