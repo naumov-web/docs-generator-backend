@@ -15,6 +15,7 @@ use App\Models\User;
 use App\UseCases\UseCaseFactory;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 /**
  * Class DocumentTemplatesController
@@ -65,9 +66,12 @@ final class DocumentTemplatesController extends BaseApiController
         $use_case->setInputDTO($input_dto);
         $use_case->execute();
 
-        return response()->json([
-            'success' => true,
-            'message' => __('messages.document_template_successfully_created')
-        ]);
+        return response()->json(
+            [
+                'success' => true,
+                'message' => __('messages.document_template_successfully_created')
+            ],
+            Response::HTTP_CREATED
+        );
     }
 }

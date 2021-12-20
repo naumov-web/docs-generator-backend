@@ -188,6 +188,67 @@ paths:
   ####################################
 
   /v1/account/document-templates:
+    get:
+      tags:
+        - "document templates"
+      security:
+        - bearerAuth: [ ]
+      summary: "Get document templates list"
+      description: ""
+      produces:
+        - "application/json"
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+        - in: "query"
+          name: "limit"
+          type: "integer"
+          description: "Limit of items in response"
+        - in: "query"
+          name: "offset"
+          type: "integer"
+          description: "Offset of items in response"
+        - in: "query"
+          name: "sort_by"
+          type: "string"
+          description: "Sort by column"
+          enum:
+            - id
+            - name
+            - created_at
+        - in: "query"
+          name: "sort_direction"
+          type: string
+          description: "Sort direction"
+          enum:
+            - asc
+            - desc
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/DocumentTemplatesListResponseModel"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/UnauthorizedResponseModel"
+        422:
+          description: "Validation error"
+          schema:
+            $ref: "#/definitions/DefaultValidationErrorResponseModel"
+        500:
+          description: "Internal server error"
+          schema:
+            $ref: "#/definitions/ServerErrorResponseModel"
     post:
       tags:
         - "document templates"
@@ -218,7 +279,7 @@ paths:
           schema:
             $ref: "#/definitions/CreateDocumentTemplateRequestModel"
       responses:
-        200:
+        201:
           description: "Successful operation"
           schema:
             $ref: "#/definitions/SimpleSuccessResponseModel"
@@ -385,4 +446,40 @@ definitions:
       surname:
         type: "string"
       last_name:
+        type: "string"
+
+  DocumentTemplatesListResponseModel:
+    type: "object"
+    properties:
+      success:
+        type: "boolean"
+      count:
+        type: "integer"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/DocumentTemplateResponseModel"
+
+  DocumentTemplateResponseModel:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      created_at:
+        type: "string"
+      file:
+        $ref: "#/definitions/FileResponseModel"
+
+  FileResponseModel:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      mime:
+        type: "string"
+      url:
         type: "string"
