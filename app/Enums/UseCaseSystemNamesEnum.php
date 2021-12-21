@@ -37,4 +37,10 @@ final class UseCaseSystemNamesEnum
      * @var string
      */
     public const CREATE_DOCUMENT_TEMPLATE = 'create_document_template';
+
+    /**
+     * Use case "Get document templates"
+     * @var string
+     */
+    public const GET_DOCUMENT_TEMPLATES = 'get_document_templates';
 }

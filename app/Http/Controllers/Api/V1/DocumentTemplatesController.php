@@ -6,11 +6,14 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\DTO\Common\FileDTO;
 use App\DTO\Input\DocumentTemplates\CreateDocumentTemplateDTO;
+use App\DTO\Input\DocumentTemplates\GetDocumentTemplatesDTO;
 use App\Enums\UseCaseSystemNamesEnum;
 use App\Exceptions\InvalidInputDTOException;
 use App\Exceptions\UseCaseNotFoundException;
 use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Requests\Api\V1\DocumentTemplates\CreateDocumentTemplateRequest;
+use App\Http\Requests\Api\V1\DocumentTemplates\GetDocumentTemplatesRequest;
+use App\Http\Resources\Api\ListResource;
 use App\Models\User;
 use App\UseCases\UseCaseFactory;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -73,5 +76,28 @@ final class DocumentTemplatesController extends BaseApiController
             ],
             Response::HTTP_CREATED
         );
+    }
+
+    /**
+     * Handle request for getting of document templates
+     *
+     * @param GetDocumentTemplatesRequest $request
+     * @return ListResource
+     */
+    public function index(GetDocumentTemplatesRequest $request): ListResource
+    {
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+        $input_dto = (new GetDocumentTemplatesDTO($user))
+            ->fill(
+                $request->only([
+                    'limit',
+                    'offset',
+                    'sort_by',
+                    'sort_direction'
+                ])
+            );
     }
 }
