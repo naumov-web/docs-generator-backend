@@ -14,7 +14,10 @@ use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Requests\Api\V1\DocumentTemplates\CreateDocumentTemplateRequest;
 use App\Http\Requests\Api\V1\DocumentTemplates\GetDocumentTemplatesRequest;
 use App\Http\Resources\Api\ListResource;
+use App\Http\Resources\Api\V1\DocumentTemplates\DocumentTemplateResource;
 use App\Models\User;
+use App\UseCases\BaseUseCase;
+use App\UseCases\Contracts\IGettingEntities;
 use App\UseCases\UseCaseFactory;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
@@ -83,6 +86,9 @@ final class DocumentTemplatesController extends BaseApiController
      *
      * @param GetDocumentTemplatesRequest $request
      * @return ListResource
+     * @throws BindingResolutionException
+     * @throws InvalidInputDTOException
+     * @throws UseCaseNotFoundException
      */
     public function index(GetDocumentTemplatesRequest $request): ListResource
     {
@@ -99,5 +105,19 @@ final class DocumentTemplatesController extends BaseApiController
                     'sort_direction'
                 ])
             );
+        /**
+         * @var IGettingEntities&BaseUseCase $use_case
+         */
+        $use_case = $this->use_case_factory->createUseCase(UseCaseSystemNamesEnum::GET_DOCUMENT_TEMPLATES);
+        $use_case->setInputDTO($input_dto);
+        $use_case->execute();
+
+        $items_dto = $use_case->getListDTO();
+
+        return new ListResource(
+            DocumentTemplateResource::class,
+            $items_dto->getModels(),
+            $items_dto->getCount()
+        );
     }
 }

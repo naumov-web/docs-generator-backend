@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCases;
 
-use App\DTO\BaseInputDTO;
+use App\DTO\BaseDTO;
 use App\Exceptions\InvalidInputDTOException;
 
 /**
@@ -15,18 +15,18 @@ abstract class BaseUseCase
 {
     /**
      * DTO with data for use case
-     * @var BaseInputDTO
+     * @var BaseDTO
      */
-    protected BaseInputDTO $input_dto;
+    protected BaseDTO $input_dto;
 
     /**
      * Set input data for use case
      *
-     * @param BaseInputDTO $input_dto
+     * @param BaseDTO $input_dto
      * @return $this
      * @throws InvalidInputDTOException
      */
-    public function setInputDTO(BaseInputDTO $input_dto): self
+    public function setInputDTO(BaseDTO $input_dto): self
     {
         $input_dto_class = $this->getInputDTOClass();
 

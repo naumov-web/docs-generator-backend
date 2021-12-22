@@ -25,4 +25,14 @@ final class GetDocumentTemplatesDTO extends BaseListInputDTO
     {
         $this->user = $user;
     }
+
+    /**
+     * Get user instance
+     *
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
 }

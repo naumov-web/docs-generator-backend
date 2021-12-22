@@ -12,25 +12,25 @@ abstract class BaseListDTO extends BaseDTO
      * Limit value
      * @var int|null
      */
-    protected int|null $limit;
+    protected int|null $limit = null;
 
     /**
      * Offset value
      * @var int|null
      */
-    protected int|null $offset;
+    protected int|null $offset = null;
 
     /**
      * Sort by value
      * @var string|null
      */
-    protected string|null $sort_by;
+    protected string|null $sort_by = null;
 
     /**
      * Sort direction value
      * @var string|null
      */
-    protected string|null $sort_direction;
+    protected string|null $sort_direction = null;
 
     /**
      * Get offset value
