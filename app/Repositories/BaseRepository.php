@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
-use App\DTO\FilterDTO;
-use App\DTO\IndexDTO;
-use App\DTO\ListItemsDTO;
+use App\DTO\Common\FilterDTO;
+use App\DTO\Common\IndexDTO;
+use App\DTO\Common\ListItemsDTO;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 

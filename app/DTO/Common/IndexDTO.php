@@ -4,42 +4,19 @@ declare(strict_types=1);
 
 namespace App\DTO\Common;
 
+use App\DTO\BaseListDTO;
+
 /**
  * Class IndexDTO
  * @package App\DTO
  */
-final class IndexDTO
+final class IndexDTO extends BaseListDTO
 {
-
-    /**
-     * Limit value
-     * @var int|null
-     */
-    private $limit = null;
-
-    /**
-     * Offset value
-     * @var int|null
-     */
-    private $offset = null;
-
     /**
      * Filters array
      * @var array
      */
     private $filters = [];
-
-    /**
-     * Sort by column
-     * @var string|null
-     */
-    private $sort_by = null;
-
-    /**
-     * Sort direction value
-     * @var string|null
-     */
-    private $sort_direction = null;
 
     /**
      * Connectable entities list
@@ -66,46 +43,6 @@ final class IndexDTO
         }
 
         return $this;
-    }
-
-    /**
-     * Get offset value
-     *
-     * @return int|null
-     */
-    public function getOffset(): ?int
-    {
-        return $this->offset;
-    }
-
-    /**
-     * Get limit value
-     *
-     * @return int|null
-     */
-    public function getLimit(): ?int
-    {
-        return $this->limit;
-    }
-
-    /**
-     * Get sort direction value
-     *
-     * @return string|null
-     */
-    public function getSortDirection(): ?string
-    {
-        return $this->sort_direction;
-    }
-
-    /**
-     * Get sort column
-     *
-     * @return string|null
-     */
-    public function getSortBy(): ?string
-    {
-        return $this->sort_by;
     }
 
     /**

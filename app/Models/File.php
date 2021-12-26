@@ -40,4 +40,14 @@ final class File extends BaseModel
     {
         return base_path(self::UPLOAD_DIR_PATH . $this->path);
     }
+
+    /**
+     * Get URL attribute accessor
+     *
+     * @return string
+     */
+    public function getUrlAttribute(): string
+    {
+        return config('app.url') . '/storage' . $this->path;
+    }
 }

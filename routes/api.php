@@ -30,6 +30,8 @@ Route::middleware('locale')->group(function() {
                 Route::prefix('document-templates')->name('document_templates.')->group(function () {
                     Route::post('', 'Api\V1\DocumentTemplatesController@create')
                         ->name('create');
+                    Route::get('', 'Api\V1\DocumentTemplatesController@index')
+                        ->name('index');
                 });
             });
         });

@@ -6,15 +6,22 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\DTO\Common\FileDTO;
 use App\DTO\Input\DocumentTemplates\CreateDocumentTemplateDTO;
+use App\DTO\Input\DocumentTemplates\GetDocumentTemplatesDTO;
 use App\Enums\UseCaseSystemNamesEnum;
 use App\Exceptions\InvalidInputDTOException;
 use App\Exceptions\UseCaseNotFoundException;
 use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Requests\Api\V1\DocumentTemplates\CreateDocumentTemplateRequest;
+use App\Http\Requests\Api\V1\DocumentTemplates\GetDocumentTemplatesRequest;
+use App\Http\Resources\Api\ListResource;
+use App\Http\Resources\Api\V1\DocumentTemplates\DocumentTemplateResource;
 use App\Models\User;
+use App\UseCases\BaseUseCase;
+use App\UseCases\Contracts\IGettingEntities;
 use App\UseCases\UseCaseFactory;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 /**
  * Class DocumentTemplatesController
@@ -65,9 +72,52 @@ final class DocumentTemplatesController extends BaseApiController
         $use_case->setInputDTO($input_dto);
         $use_case->execute();
 
-        return response()->json([
-            'success' => true,
-            'message' => __('messages.document_template_successfully_created')
-        ]);
+        return response()->json(
+            [
+                'success' => true,
+                'message' => __('messages.document_template_successfully_created')
+            ],
+            Response::HTTP_CREATED
+        );
+    }
+
+    /**
+     * Handle request for getting of document templates
+     *
+     * @param GetDocumentTemplatesRequest $request
+     * @return ListResource
+     * @throws BindingResolutionException
+     * @throws InvalidInputDTOException
+     * @throws UseCaseNotFoundException
+     */
+    public function index(GetDocumentTemplatesRequest $request): ListResource
+    {
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+        $input_dto = (new GetDocumentTemplatesDTO($user))
+            ->fill(
+                $request->only([
+                    'limit',
+                    'offset',
+                    'sort_by',
+                    'sort_direction'
+                ])
+            );
+        /**
+         * @var IGettingEntities&BaseUseCase $use_case
+         */
+        $use_case = $this->use_case_factory->createUseCase(UseCaseSystemNamesEnum::GET_DOCUMENT_TEMPLATES);
+        $use_case->setInputDTO($input_dto);
+        $use_case->execute();
+
+        $items_dto = $use_case->getListDTO();
+
+        return new ListResource(
+            DocumentTemplateResource::class,
+            $items_dto->getModels(),
+            $items_dto->getCount()
+        );
     }
 }
