@@ -2,15 +2,37 @@
 
 namespace App\UseCases\DocumentTemplates;
 
-class DeleteDocumentTemplateUseCase extends \App\UseCases\BaseUseCase
+use App\DTO\Input\DocumentTemplates\DeleteDocumentTemplateDTO;
+use App\Repositories\DocumentTemplatesRepository;
+use App\UseCases\BaseUseCase;
+
+/**
+ * Class DeleteDocumentTemplateUseCase
+ * @package App\UseCases\DocumentTemplates
+ */
+final class DeleteDocumentTemplateUseCase extends BaseUseCase
 {
+    /**
+     * Document templates repository instance
+     * @var DocumentTemplatesRepository
+     */
+    private DocumentTemplatesRepository $repository;
 
     /**
      * @inheritDoc
      */
     protected function getInputDTOClass(): ?string
     {
-        // TODO: Implement getInputDTOClass() method.
+        return DeleteDocumentTemplateDTO::class;
+    }
+
+    /**
+     * DeleteDocumentTemplateUseCase constructor
+     * @param DocumentTemplatesRepository $repository
+     */
+    public function __construct(DocumentTemplatesRepository $repository)
+    {
+        $this->repository = $repository;
     }
 
     /**
@@ -18,6 +40,6 @@ class DeleteDocumentTemplateUseCase extends \App\UseCases\BaseUseCase
      */
     public function execute(): void
     {
-        // TODO: Implement execute() method.
+        $this->repository->delete($this->input_dto->getDocumentTemplate());
     }
 }

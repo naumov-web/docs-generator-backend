@@ -43,4 +43,10 @@ final class UseCaseSystemNamesEnum
      * @var string
      */
     public const GET_DOCUMENT_TEMPLATES = 'get_document_templates';
+
+    /**
+     * Use case "Delete document template"
+     * @var string
+     */
+    public const DELETE_DOCUMENT_TEMPLATE = 'delete_document_template';
 }

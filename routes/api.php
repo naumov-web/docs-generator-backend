@@ -32,6 +32,8 @@ Route::middleware('locale')->group(function() {
                         ->name('create');
                     Route::get('', 'Api\V1\DocumentTemplatesController@index')
                         ->name('index');
+                    Route::delete('{document_template}', 'Api\V1\DocumentTemplatesController@delete')
+                        ->name('delete');
                 });
             });
         });

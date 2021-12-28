@@ -6,15 +6,18 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\DTO\Common\FileDTO;
 use App\DTO\Input\DocumentTemplates\CreateDocumentTemplateDTO;
+use App\DTO\Input\DocumentTemplates\DeleteDocumentTemplateDTO;
 use App\DTO\Input\DocumentTemplates\GetDocumentTemplatesDTO;
 use App\Enums\UseCaseSystemNamesEnum;
 use App\Exceptions\InvalidInputDTOException;
 use App\Exceptions\UseCaseNotFoundException;
 use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Requests\Api\V1\DocumentTemplates\CreateDocumentTemplateRequest;
+use App\Http\Requests\Api\V1\DocumentTemplates\DeleteDocumentTemplateRequest;
 use App\Http\Requests\Api\V1\DocumentTemplates\GetDocumentTemplatesRequest;
 use App\Http\Resources\Api\ListResource;
 use App\Http\Resources\Api\V1\DocumentTemplates\DocumentTemplateResource;
+use App\Models\DocumentTemplate;
 use App\Models\User;
 use App\UseCases\BaseUseCase;
 use App\UseCases\Contracts\IGettingEntities;
@@ -118,6 +121,30 @@ final class DocumentTemplatesController extends BaseApiController
             DocumentTemplateResource::class,
             $items_dto->getModels(),
             $items_dto->getCount()
+        );
+    }
+
+    /**
+     * Handle request for deleting of document template
+     *
+     * @param DeleteDocumentTemplateRequest $request
+     * @param DocumentTemplate $document_template
+     * @return JsonResponse
+     * @throws BindingResolutionException
+     * @throws InvalidInputDTOException
+     * @throws UseCaseNotFoundException
+     */
+    public function delete(DeleteDocumentTemplateRequest $request, DocumentTemplate $document_template): JsonResponse
+    {
+        $use_case = $this->use_case_factory->createUseCase(UseCaseSystemNamesEnum::DELETE_DOCUMENT_TEMPLATE);
+        $use_case->setInputDTO(new DeleteDocumentTemplateDTO($document_template));
+        $use_case->execute();
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => __('messages.document_template_successfully_deleted')
+            ]
         );
     }
 }
