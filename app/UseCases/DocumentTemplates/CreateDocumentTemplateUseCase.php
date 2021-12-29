@@ -29,6 +29,8 @@ final class CreateDocumentTemplateUseCase extends BaseUseCase
      */
     private FilesService $files_service;
 
+    private DocumentTemplate $document_template;
+
     /**
      * CreateDocumentTemplateUseCase constructor
      * @param DocumentTemplatesRepository $document_templates_repository
