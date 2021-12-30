@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Contracts\IHasOwner;
+use App\Models\Traits\HasOwner;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
@@ -15,8 +17,10 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  *
  * @property File $file
  */
-final class DocumentTemplate extends BaseModel
+final class DocumentTemplate extends BaseModel implements IHasOwner
 {
+    use HasOwner;
+
     /**
      * File relation
      *

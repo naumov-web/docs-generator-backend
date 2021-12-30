@@ -296,6 +296,55 @@ paths:
           schema:
             $ref: "#/definitions/ServerErrorResponseModel"
 
+  /v1/account/document-templates/{document_template}:
+    delete:
+      tags:
+        - "document templates"
+      security:
+          - bearerAuth: [ ]
+      summary: "Delete specific document template"
+      description: ""
+      produces:
+        - "application/json"
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: X-Locale
+          type: string
+          enum:
+            - ru
+            - en
+        - in: path
+          name: document_template
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/SimpleSuccessResponseModel"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/UnauthorizedResponseModel"
+        403:
+          description: "Forbidden"
+          schema:
+            $ref: "#/definitions/ForbiddenResponseModel"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/NotFoundResponseModel"
+        500:
+          description: "Internal server error"
+          schema:
+            $ref: "#/definitions/ServerErrorResponseModel"
+
 definitions:
 
   ##############################
@@ -393,6 +442,14 @@ definitions:
         type: "string"
 
   ForbiddenResponseModel:
+    type: "object"
+    properties:
+      success:
+        type: "boolean"
+      message:
+        type: "string"
+
+  NotFoundResponseModel:
     type: "object"
     properties:
       success:

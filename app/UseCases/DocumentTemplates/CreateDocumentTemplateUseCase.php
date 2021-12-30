@@ -30,6 +30,12 @@ final class CreateDocumentTemplateUseCase extends BaseUseCase
     private FilesService $files_service;
 
     /**
+     * Document template instance
+     * @var DocumentTemplate
+     */
+    private DocumentTemplate $document_template;
+
+    /**
      * CreateDocumentTemplateUseCase constructor
      * @param DocumentTemplatesRepository $document_templates_repository
      * @param FilesService $files_service
@@ -38,6 +44,16 @@ final class CreateDocumentTemplateUseCase extends BaseUseCase
     {
         $this->document_templates_repository = $document_templates_repository;
         $this->files_service = $files_service;
+    }
+
+    /**
+     * Get created document template instance
+     *
+     * @return DocumentTemplate
+     */
+    public function getDocumentTemplate(): DocumentTemplate
+    {
+        return $this->document_template;
     }
 
     /**
@@ -72,5 +88,7 @@ final class CreateDocumentTemplateUseCase extends BaseUseCase
 
         // 3. Create file instance for document template
         $this->files_service->create($document_template, $this->input_dto->getFile());
+
+        $this->document_template = $document_template;
     }
 }

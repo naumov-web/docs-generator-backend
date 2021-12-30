@@ -2,18 +2,14 @@
 
 namespace Tests\Unit\DocumentTemplates;
 
-use App\DTO\Common\FileDTO;
-use App\DTO\Input\DocumentTemplates\CreateDocumentTemplateDTO;
 use App\DTO\Input\DocumentTemplates\GetDocumentTemplatesDTO;
 use App\Enums\UseCaseSystemNamesEnum;
 use App\Exceptions\InvalidInputDTOException;
 use App\Exceptions\UseCaseNotFoundException;
-use App\Models\DocumentTemplate;
-use App\Models\User;
 use App\UseCases\BaseUseCase;
 use App\UseCases\Contracts\IGettingEntities;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Support\Collection;
+use Tests\Traits\UseDocumentTemplates;
 use Tests\Unit\BaseUseCaseTest;
 
 /**
@@ -22,6 +18,8 @@ use Tests\Unit\BaseUseCaseTest;
  */
 final class GetDocumentTemplatesUseCaseTest extends BaseUseCaseTest
 {
+    use UseDocumentTemplates;
+
     /**
      * Document templates data for testing
      * @var array
@@ -264,66 +262,5 @@ final class GetDocumentTemplatesUseCaseTest extends BaseUseCaseTest
         );
 
         $this->removeFilesForTemplates($document_templates);
-    }
-
-    /**
-     * Create document templates for testing
-     *
-     * @param User $owner
-     * @return Collection
-     * @throws BindingResolutionException
-     * @throws UseCaseNotFoundException
-     * @throws InvalidInputDTOException
-     */
-    private function createDocumentTemplatesForTesting(User $owner): Collection
-    {
-        $result = collect([]);
-        $use_case = $this->use_case_factory->createUseCase(UseCaseSystemNamesEnum::CREATE_DOCUMENT_TEMPLATE);
-
-        foreach ($this->document_templates as $document_template) {
-            $data = array_merge(
-                $document_template,
-                [
-                    'file' => [
-                        'name' => 'template-1.docx',
-                        'mime' => 'application/octet-stream',
-                        'content' => base64_encode(file_get_contents(base_path('tests/resources/template-1.docx')))
-                    ]
-                ]
-            );
-
-            $use_case->setInputDTO(
-                new CreateDocumentTemplateDTO(
-                    $data['name'],
-                    new FileDTO(
-                        $data['file']['name'],
-                        $data['file']['mime'],
-                        $data['file']['content']
-                    ),
-                    $owner
-                )
-            );
-            $use_case->execute();
-        }
-
-        return $result;
-    }
-
-    /**
-     * Remove files from storage for each template (collect garbage files after test)
-     *
-     * @param Collection $document_templates
-     * @return void
-     */
-    private function removeFilesForTemplates(Collection $document_templates): void
-    {
-        foreach ($document_templates as $document_template) {
-            /**
-             * @var DocumentTemplate $document_template
-             */
-            $file = $document_template->file;
-
-            @unlink($file->full_path);
-        }
     }
 }

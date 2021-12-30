@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Contracts\IOwner;
+use App\Models\Traits\Owner;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,9 +23,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string $last_name
  * @property Company|null $first_company
  */
-final class User extends Authenticatable implements JWTSubject
+final class User extends Authenticatable implements JWTSubject, IOwner
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Owner;
 
     /**
      * Guarded arguments list

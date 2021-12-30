@@ -31,6 +31,11 @@ trait UseUserRegistration
             'password_confirmation' => 'password',
             'company_name' => 'Company one'
         ],
+        [
+            'email' => 'user3@email.com',
+            'password' => 'password',
+            'password_confirmation' => 'password'
+        ],
     ];
 
     /**

@@ -8,5 +8,6 @@ return [
     'user_registered_successfully' => 'Users successfully registered!',
     'user_info_loaded_successfully' => 'Users info loaded successfully!',
     'user_updated_successfully' => 'User updated successfully!',
-    'document_template_successfully_created' => 'Document template successfully created!'
+    'document_template_successfully_created' => 'Document template successfully created!',
+    'document_template_successfully_deleted' => 'Document template successfully deleted!'
 ];
