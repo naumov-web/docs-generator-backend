@@ -9,5 +9,6 @@ return [
     'user_info_loaded_successfully' => 'Информация о пользователе успешно загружена!',
     'user_updated_successfully' => 'Информация о пользователе успешно изменена!',
     'document_template_successfully_created' => 'Шаблон документа успешно создан!',
-    'document_template_successfully_deleted' => 'Шаблон документа успешно удален!'
+    'document_template_successfully_deleted' => 'Шаблон документа успешно удален!',
+    'welcome_to_docs_generator' => 'Добро пожаловать в генератор документов!'
 ];

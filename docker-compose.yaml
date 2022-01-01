@@ -27,9 +27,24 @@ services:
       - ./:/var/www
     depends_on:
       - pgsql
+      - redis
     container_name: docs_generator_php_fpm
     networks:
       - default-network
+
+  job-worker:
+    build:
+      context: .
+      dockerfile: deployment/local/docker/job-worker/Dockerfile
+    volumes:
+      - ./:/var/www
+    networks:
+      - default-network
+    depends_on:
+      - pgsql
+      - redis
+      - php-fpm
+    container_name: docs_generator_job_worker
 
   pgsql:
     image: postgres:11.3
@@ -52,5 +67,12 @@ services:
       POSTGRES_DB: ${DB_TESTING_DATABASE}
       POSTGRES_USER: ${DB_TESTING_USERNAME}
       POSTGRES_PASSWORD: ${DB_TESTING_PASSWORD}
+    networks:
+      - default-network
+
+  redis:
+    image: redis:4.0
+    ports:
+      - "${DOCKER_REDIS_PORT}:6379"
     networks:
       - default-network
