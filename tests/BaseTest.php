@@ -6,6 +6,7 @@ use App\UseCases\UseCaseFactory;
 use Database\Seeders\RolesSeeder;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Queue;
 
 /**
  * Class BaseTest
@@ -30,6 +31,7 @@ abstract class BaseTest extends TestCase
     public function init(): void
     {
         $this->use_case_factory = app()->make(UseCaseFactory::class);
+        Queue::fake();
     }
 
     /**

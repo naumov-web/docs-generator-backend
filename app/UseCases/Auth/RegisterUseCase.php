@@ -5,6 +5,7 @@ namespace App\UseCases\Auth;
 use App\DTO\Common\FilterDTO;
 use App\DTO\Input\Auth\RegisterUserDTO;
 use App\Enums\RoleSystemNamesEnum;
+use App\Mail\WelcomeEmail;
 use App\Models\Company;
 use App\Models\Role;
 use App\Models\User;
@@ -13,6 +14,7 @@ use App\Repositories\RolesRepository;
 use App\Repositories\UsersRepository;
 use App\UseCases\BaseUseCase;
 use App\UseCases\Traits\UsePassword;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Class RegisterUseCase
@@ -71,18 +73,20 @@ final class RegisterUseCase extends BaseUseCase
     public function execute(): void
     {
         if ($this->input_dto->getCompanyName()) {
-            $this->registerCompanyOwner();
+            $user = $this->registerCompanyOwner();
         } else {
-            $this->registerSimpleUser();
+            $user = $this->registerSimpleUser();
         }
+
+        Mail::queue(new WelcomeEmail($user));
     }
 
     /**
      * Register company owner
      *
-     * @return void
+     * @return User
      */
-    private function registerCompanyOwner(): void
+    private function registerCompanyOwner(): User
     {
         $user = $this->registerSimpleUser();
         /**
@@ -95,6 +99,8 @@ final class RegisterUseCase extends BaseUseCase
         $user->companies()->sync([
             $company->id
         ]);
+
+        return $user;
     }
 
     /**
